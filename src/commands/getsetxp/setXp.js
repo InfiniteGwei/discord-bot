@@ -1,5 +1,6 @@
 const Level = require('../../models/Level');
 const calculateLevelXp = require('../../utils/calculateLevelXp');
+let lastUsed = 0;
 
 const {
     ApplicationCommandOptionType,
@@ -31,6 +32,17 @@ const {
     ],
   
     callback: async (client, interaction) => {
+
+      // cooldown
+      const now = Date.now();
+      if (now - lastUsed < 3000) {
+      return interaction.reply({
+        content: 'This command can only be used once every 3 seconds.',
+        ephemeral: true,
+      });
+      }
+      lastUsed = now;
+        
 
         const { options } = interaction;
         // Sends the user object, that's why we have to append `user.id`
