@@ -4,8 +4,8 @@ let lastUsed = 0;
 
 module.exports = {
     deleted: false,
-    name: 'set-levels',
-    description: 'Set levels for a guild.',
+    name: 'config-levels',
+    description: 'Define the XP system of this server. Ideally, this should be done just once.',
     options: [
         {
             name: 'levels',
@@ -22,6 +22,13 @@ module.exports = {
     ],
 
     callback: async (client, interaction) => {
+        // Check if the user has administrator permissions
+        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+            return interaction.reply({
+                content: 'You must have administrator permissions to use this command.',
+                ephemeral: true,
+            });
+        }
 
         // cooldown
         const now = Date.now();
@@ -67,7 +74,6 @@ module.exports = {
 
                 // Now request more information from the admin about each level
                 for (let i = 0; i < levelsToSet; i++) {
-                    // We use interaction to send messages to and collect responses from the admin
                     await interaction.reply(`Please enter the minimum XP and the role ID (separated by a space) for level ${i + 1} (e.g., "1000 123456789012345678"):`);
                     const collected = await interaction.channel.awaitMessages({ max: 1, time: 60000, errors: ['time'] });
 
@@ -88,14 +94,13 @@ module.exports = {
 
                 console.log(`Level settings for guild ${guildId} were set by an admin.`);
                 return interaction.reply({
-                    content: `You set the level settings for this guild.`,
+                    content: 'You set the level settings for this guild.',
                     ephemeral: true,
                 });
-
             } catch (error) {
                 console.error(`Error setting level settings for guild ${guildId}: ${error}`);
-                interaction.reply({
-                    content: `Sorry, I couldn't set the level settings for this guild. Please try again.`,
+                return interaction.reply({
+                    content: 'Sorry, I couldn\'t set the level settings for this guild. Please try again.',
                     ephemeral: true,
                 });
             }

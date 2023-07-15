@@ -8,12 +8,12 @@ const {
 
 module.exports = {
     deleted: false,
-    name: 'set-base-xp',
-    description: 'Set base XP increment of a guild.',
+    name: 'config-base-xp',
+    description: 'Set the base XP increment of this server. Ideally, this should be done just once.',
     options: [
         {
             name: 'base_xp',
-            description: 'What is the base XP increment?',
+            description: 'What is the base XP of your server?',
             required: true,
             type: ApplicationCommandOptionType.Number,
         },
@@ -26,6 +26,14 @@ module.exports = {
     ],
 
     callback: async (client, interaction) => {
+
+        // Check if the user has administrator permissions
+        if (!interaction.member.permissions.has('ADMINISTRATOR')) {
+            return interaction.reply({
+            content: 'You must have administrator permissions to use this command.',
+            ephemeral: true,
+        });
+        }
 
         // cooldown
         const now = Date.now();
