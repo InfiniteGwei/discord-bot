@@ -26,7 +26,7 @@ module.exports = async (reaction, xpToGive, op, op_name, reactor, reactor_name, 
                 await level.save();
             } catch (e) {
                 console.log(`Error saving updates: ${e}`);
-                reaction.message.channel.send(`<@${reactor}>, we ran into an error 😔\nPlease react again!`);
+                reaction.message.channel.send(`<@${reactor}>, we ran into an error 😔\nPlease add 3 XP points using \`/set-xp\`.`);
                 return;
             }
         

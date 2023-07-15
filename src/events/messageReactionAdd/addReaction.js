@@ -5,7 +5,6 @@ const xpToGive = 3;
 const requiredRoleId = ["1125833838178877510", "1125833870898626673"];
 
 const addXp = require('../../utils/addXp');
-const removeXp = require('../../utils/removeXp');
 
 module.exports = async (client, reaction, user) => {
 
@@ -14,17 +13,18 @@ module.exports = async (client, reaction, user) => {
 
     const reactor = user.id;
     const reactor_name = user.username;
-   
 
     // Not necessarily required, but can helpful to prevent the bot from crashing
     const guildMember = reaction.message.guild?.members.cache.get(reactor);
     if (!guildMember) return;
 
-    // You shouldn't be able to give XP to yourself!
+    // Reactor should not be giving XP to themself
     if (op === reactor) return;
+
+    // Reactor should be adding the right emoji
     if (reaction.emoji.name !== targetReaction) return;
     
-    // Finally, you should have the right roles
+    // Reactor should have the right roles
     const hasRole = requiredRoleId.some((roleId) => guildMember.roles.cache.has(roleId));
     if (!hasRole) return;
     
