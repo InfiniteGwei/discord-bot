@@ -1,3 +1,5 @@
+const Level = require('../../models/Level');
+
 const {
     ApplicationCommandOptionType,
   } = require('discord.js');
@@ -16,10 +18,15 @@ const {
         type: ApplicationCommandOptionType.Mentionable,
       },
     ],
+
+    //get variables to call db
+    //check the xp!
   
     callback: (client, interaction) => {
       //add code to check XP here!
-      interaction.reply("Add code to check XP here!");
-    },
+      interaction.reply({
+        content: "Add code to check XP here!",
+        ephemeral: true,
+    });
+   }
   }; 
-  
