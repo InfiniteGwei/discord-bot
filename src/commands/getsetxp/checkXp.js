@@ -18,9 +18,12 @@ module.exports = {
   ],
 
   callback: async (client, interaction) => {
-      // Get the user ID from the interaction
-      const userId = interaction.options.getMentionable('user').id;
-      const username = interaction.options.getMentionable('user').user.username;
+
+      const { options } = interaction;
+      // Sends the user object, that's why we have to append `user.id`
+      // instead of just `.id`      
+      const userId = options.get('user').user.id;
+      const username = options.get('user').user.username;
 
       // Get the guild ID from the interaction
       const guildId = interaction.guild.id;
@@ -49,7 +52,6 @@ module.exports = {
               });
           }
       } catch (error) {
-          // If there's an error, log it and reply with an error message
           console.error(`Error fetching XP for user ${userId}: ${error}`);
           interaction.reply({
               content: `Sorry, I couldn't fetch the XP for ${username}.`,
