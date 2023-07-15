@@ -25,7 +25,7 @@ module.exports = async (reaction, xpToGive, op, op_name, reactor, reactor_name, 
             try {
                 await level.save();
             } catch (e) {
-                console.log(`Error saving updated level: ${e}`);
+                console.log(`Error saving updates: ${e}`);
                 reaction.message.channel.send(`<@${reactor}>, we ran into an error 😔\nPlease react again!`);
                 return;
             }
@@ -40,7 +40,7 @@ module.exports = async (reaction, xpToGive, op, op_name, reactor, reactor_name, 
         
         // if they don't exist in the DB
         else {
-            // create new level
+            // create new user
             const newLevel = new Level({
                 userId: op,
                 guildId: guildId,
@@ -51,7 +51,7 @@ module.exports = async (reaction, xpToGive, op, op_name, reactor, reactor_name, 
             try {
                 await newLevel.save();
             } catch (e) {
-                console.log(`Error saving updated level: ${e}`);
+                console.log(`Error initializing user: ${e}`);
                 reaction.message.channel.send(`<@${reactor}>, we ran into an error 😔\nPlease react again!`);
                 return;
             }
