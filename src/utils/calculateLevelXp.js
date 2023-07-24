@@ -1,9 +1,11 @@
 module.exports = (level) => {
     if (level === 1) {
-        return 11;
+        return 49;
     } else if (level === 2) {
-        return 17;
+        return 99;
     } else if (level === 3) {
-        return 23;        
+        return 299;        
+    } else if (level === 4) {
+        return 499;
     }
 };
