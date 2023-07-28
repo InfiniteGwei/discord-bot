@@ -2,7 +2,7 @@
 //TODO Also, what roles to give at what levels? Add them here, and then add them as a paramter in addXp.js, and make sure you send it by adding it in line 33.
 const targetReaction = '💯';
 const xpToGive = 3;
-const requiredRoleId = ["1125833838178877510", "1125833870898626673"];
+const requiredRoleId = ["939444788174925825", "722112034224865281"];
 
 const addXp = require('../../utils/addXp');
 
